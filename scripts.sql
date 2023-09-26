@@ -20,12 +20,16 @@ create table tb_categoria(
     ds_categoria	varchar(200) not null
 );
 select * from tb_categoria;
+insert into tb_categoria (ds_categoria)
+	 values ('Celulares');
 
 create table tb_marca(
 	id_marca	int primary key auto_increment,
     nm_marca	varchar(100) not null
 );
 select * from tb_marca;
+insert into tb_marca (nm_marca)
+	 values ('Iphone');
 
 create table tb_produto(
 	id_produto 			int primary key auto_increment,
@@ -40,7 +44,15 @@ create table tb_produto(
     foreign key (id_marca) references tb_marca(id_marca),
     foreign key (id_categoria) references tb_categoria(id_categoria)
 );
-select * from tb_porduto;
+select * from tb_produto;
+delete from tb_produto where id_produto = ?;
+
+insert into tb_produto (id_marca, id_categoria, nm_modelo, vl_preco, ds_cor, bt_disponivel, ds_produto, vl_preco_promocao)
+	 values (1, 1, 'Iphone 13', 4499.00, 'Branco', true, 'Apple iPhone 13 128GB. O sistema de câmera dupla mais avançado em um iPhone', 3559.00);
+
+	select nm_modelo as produto, vl_preco as preco, ds_categoria as categoria, bt_disponivel as disponibilidade 
+	  from tb_produto 
+inner join tb_categoria on tb_categoria.id_categoria = tb_produto.id_categoria;
 
 create table tb_porduto_detalhe(
 	id_produto_detalhe	int primary key auto_increment,
@@ -70,6 +82,8 @@ create table tb_cliente(
     ds_telefone			varchar(100) not null
 );
 select * from tb_cliente;
+
+select nm_cliente as nome, ds_email as email, dt_nascimento as nasc, ds_telefone as telefone from tb_cliente;
 
 insert into tb_cliente (nm_cliente, ds_email, ds_senha, dt_nascimento, ds_telefone)
 values (?, ?, ?, ?, ?);
