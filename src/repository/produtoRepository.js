@@ -13,3 +13,12 @@ export async function deletarProduto(id) {
 
     return dados.affectedRows;
 }
+
+export async function adicionarProduto() {
+    let sql = `insert into tb_produto (id_marca, id_categoria, nm_modelo, vl_preco, ds_cor, bt_disponivel, ds_produto, vl_preco_promocao) 
+    values (?, ?, ?, ?, ?, ?, ?, ?);`
+
+    let [dados] = await connection.query(sql);
+    return dados;
+
+}

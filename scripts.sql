@@ -35,10 +35,11 @@ create table tb_produto(
 	id_produto 			int primary key auto_increment,
     id_marca			int,
     id_categoria		int,
-    nm_modelo			varchar(200) not null,
+    nm_produto			varchar(200) not null,
     vl_preco			decimal(15,2) not null,
     ds_cor				varchar(200) not null,
     bt_disponivel		boolean not null,
+    nr_quantidade		int,
     ds_produto			varchar(200) not null,
     vl_preco_promocao	decimal(15,2) not null,
     foreign key (id_marca) references tb_marca(id_marca),
@@ -47,8 +48,9 @@ create table tb_produto(
 select * from tb_produto;
 delete from tb_produto where id_produto = ?;
 
-insert into tb_produto (id_marca, id_categoria, nm_modelo, vl_preco, ds_cor, bt_disponivel, ds_produto, vl_preco_promocao)
-	 values (1, 1, 'Iphone 13', 4499.00, 'Branco', true, 'Apple iPhone 13 128GB. O sistema de câmera dupla mais avançado em um iPhone', 3559.00);
+
+insert into tb_produto (id_marca, id_categoria, nm_produto, vl_preco, ds_cor, bt_disponivel, nr_quantidade, ds_produto, vl_preco_promocao)
+	 values (1, 1, 'Iphone 13', 4499.00, 'Branco', true, 17, 'Apple iPhone 13 128GB. O sistema de câmera dupla mais avançado em um iPhone', 3559.00);
 
 	select nm_modelo as produto, vl_preco as preco, ds_categoria as categoria, bt_disponivel as disponibilidade 
 	  from tb_produto 
