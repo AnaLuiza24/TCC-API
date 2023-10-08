@@ -1,5 +1,18 @@
 import connection from "./connection.js";
 
+
+export async function listarMarcas() {
+    let sql = 'select nm_marca as marca, id_marca as id from tb_marca';
+    let [dados] = await connection.query(sql);
+    return dados;
+}
+
+export async function listarCategorias() {
+    let sql = 'select ds_categoria as categoria, id_categoria as id from tb_categoria';
+    let [dados] = await connection.query(sql);
+    return dados;
+}
+
 export async function listarProduto() {
     let sql = 'select nm_modelo as produto, vl_preco as preco, ds_categoria as categoria, bt_disponivel as disponibilidade, id_produto as id from tb_produto inner join tb_categoria on tb_categoria.id_categoria = tb_produto.id_categoria';
 

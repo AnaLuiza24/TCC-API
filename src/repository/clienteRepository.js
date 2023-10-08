@@ -23,8 +23,8 @@ export async function listarCliente() {
 }
 
 export async function buscarNome(nome) {
-    let sql = 'select nm_cliente as nome, ds_email as email, dt_nascimento as nasc, ds_telefone as telefone from tb_cliente where nome like ?';
+    let sql = 'select nm_cliente as nome, ds_email as email, dt_nascimento as nasc, ds_telefone as telefone from tb_cliente where nm_cliente like ?';
 
     let [dados] = await connection.query(sql, ['%' + nome + '%']);
-    
+    return dados;
 }
