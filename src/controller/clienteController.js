@@ -25,14 +25,7 @@ endpoints.get('/listar/cliente', async (req, resp) => {
     }
 })
 
-endpoints.get('/listar/cliente', async (req, resp) => {
-    try{
-        let r = await listarCliente();
-        resp.send(r);
-    }catch(err) {
-        resp.status(500).send({erro: 'Ocorreu um erro'})
-    }
-})
+
 
 
 export default endpoints;

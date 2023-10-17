@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { deletarProduto, listarProduto, adicionarProduto, listarMarcas, listarCategorias } from "../repository/produtoRepository.js";
+import { deletarProduto, listarProduto, adicionarProduto, listarMarcas, listarCategorias, nomeProduto } from "../repository/produtoRepository.js";
 
 let endpoints = Router();
 
@@ -26,7 +26,8 @@ endpoints.get('/marcas/listar', async (req, resp) => {
 
 endpoints.get('/listar/produtos', async (req, resp) => {
     try{
-        let r = await listarProduto();
+        let nome = req.query.nome;
+        let r = await nomeProduto(nome);
         resp.send(r);
 
     }catch(err) {
@@ -46,12 +47,12 @@ endpoints.delete('/deletar/:id', async (req, resp) => {
     }
 })
 
-endpoints.post('/adicionar/produto', async (req, resp) => {
+endpoints.post('/produto', async (req, resp) => {
     try{
         let produto = req.body;
 
         let dados = await adicionarProduto(produto);
-        resp.send(dados)
+        resp.send(dados);
 
     }catch(err) {
         resp.status(404).send({erro: 'Ocorreu um erro'})
