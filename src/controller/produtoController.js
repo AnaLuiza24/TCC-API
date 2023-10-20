@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { deletarProduto, listarProduto, adicionarProduto, listarMarcas, listarCategorias, nomeProduto } from "../repository/produtoRepository.js";
+import { deletarProduto, listarProduto, adicionarProduto, listarMarcas, listarCategorias, nomeProduto, adicionarDetalhe } from "../repository/produtoRepository.js";
 
 let endpoints = Router();
 
@@ -58,6 +58,18 @@ endpoints.post('/produto', async (req, resp) => {
         resp.status(404).send({erro: 'Ocorreu um erro'})
     }
 
+})
+
+endpoints.post('/detalhe', async (req, resp) => {
+    try{
+        let detalhe = req.body;
+
+        let dados = await adicionarDetalhe(detalhe);
+        resp.send(dados)
+
+    }catch(err){
+        resp.status(404).send({erro: 'Ocorreu um erro'})
+    }
 })
 
 export default endpoints;

@@ -52,3 +52,17 @@ export async function adicionarProduto(produto) {
     produto.id = dados.insertId;
     return produto;
 }
+
+
+export async function adicionarDetalhe(detalhe) {
+    let sql = 'insert into tb_produto_detalhe (id_produto, tp_detalhe, ds_detalhe) values (?, ?, ?)';
+
+    let [dados] = await connection.query(sql, [
+        detalhe.idProduto,
+        detalhe.tipo,
+        detalhe.desc
+    ]);
+
+    detalhe.id = dados.insertId;
+    return detalhe;
+}
