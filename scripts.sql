@@ -99,3 +99,21 @@ select nm_cliente as nome, ds_email as email, dt_nascimento as nasc, ds_telefone
 
 insert into tb_cliente (nm_cliente, ds_email, ds_senha, dt_nascimento, ds_telefone)
 values (?, ?, ?, ?, ?);
+
+create table tb_endereco(
+	id_endereco			int primary key auto_increment,
+    nm_destinatario		varchar(200) not null,
+    ds_cep				varchar(100) not null,
+    ds_endereco			varchar(500) not null,
+    ds_bairro			varchar(200) not null,
+    ds_cidade			varchar(200) not null,
+    ds_estado			varchar(200) not null,
+    nr_endereco			int not null,
+    ds_complemento		varchar(200)
+);
+drop table tb_endereco;
+select * from tb_endereco;
+insert into tb_endereco (nm_destinatario, ds_cep, ds_endereco, ds_bairro, ds_cidade, ds_estado, nr_endereco, ds_complemento)
+	 values ("Exemplo", "12345-567", "Rua de exemplo", "Bairro de exemplo", "São Paulo", "São Paulo", 1000, "Casa de exemplo");
+     
+     
