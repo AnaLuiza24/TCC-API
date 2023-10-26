@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { deletarProduto, listarProduto, adicionarProduto, listarMarcas, listarCategorias, nomeProduto, adicionarDetalhe } from "../repository/produtoRepository.js";
+import { deletarProduto, listarProduto, adicionarProduto, listarMarcas, listarCategorias, nomeProduto, adicionarDetalhe, listarIphone, listarSamsung, listarMotorola, listarXiaomi } from "../repository/produtoRepository.js";
 
 let endpoints = Router();
 
@@ -69,6 +69,46 @@ endpoints.post('/detalhe', async (req, resp) => {
 
     }catch(err){
         resp.status(404).send({erro: 'Ocorreu um erro'})
+    }
+})
+
+endpoints.get('/smartphones/listar/iphone', async (req, resp) => {
+    try{
+        let r = await listarIphone();
+        resp.send(r);
+
+    }catch(err){
+        resp.status(500).send({erro: "Ocorreu um erro"})
+    }
+})
+
+endpoints.get('/smartphones/listar/samsung', async (req, resp) => {
+    try{
+        let r = await listarSamsung();
+        resp.send(r);
+
+    }catch(err){
+        resp.status(500).send({erro: "Ocorreu um erro"})
+    }
+})
+
+endpoints.get('/smartphones/listar/motorola', async (req, resp) => {
+    try{
+        let r = await listarMotorola();
+        resp.send(r);
+
+    }catch(err){
+        resp.status(500).send({erro: "Ocorreu um erro"})
+    }
+})
+
+endpoints.get('/smartphones/listar/xiaomi', async (req, resp) => {
+    try{
+        let r = await listarXiaomi();
+        resp.send(r);
+
+    }catch(err){
+        resp.status(500).send({erro: "Ocorreu um erro"})
     }
 })
 
