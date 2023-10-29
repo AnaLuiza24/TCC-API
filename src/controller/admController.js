@@ -1,17 +1,22 @@
-import { consultarTodos } from "../repository/admRepository.js";
+import { loginAdm } from "../repository/admRepository.js";
 import { Router } from "express";
 
 let endpoints = Router();
 
-endpoints.get('/consultar', async (req, resp) => {
-    try {
-        let {email, senha} = req.query ?? ''
-        let r = await consultarTodos(email, senha);
-        resp.send(r);
-    }
-    catch (err) {
-      resp.status(500).send({ erro: 'Ocorreu um erro!' });
-    }
-  })
+endpoints.post('/adm/login', async (req, resp) => {
+  try{
+    const {email, senha} = req.body;
+    const r = await loginAdm(email, senha);
 
-  export default endpoints;
+    if (!r){
+      throw new Error('Credenciais inválidas');
+    }
+
+     resp.send(r);
+
+  }catch(err){
+    resp.status(401).send({erro: err.message});
+  }
+})
+
+export default endpoints;
