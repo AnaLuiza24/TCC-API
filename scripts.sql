@@ -45,6 +45,8 @@ create table tb_produto(
     nr_quantidade		int,
     ds_produto			varchar(200) not null,
     vl_preco_promocao	decimal(15,2) not null,
+    url_imagem_um 		varchar(200),
+    url_imagem_dois 		varchar(200),
     foreign key (id_marca) references tb_marca(id_marca),
     foreign key (id_categoria) references tb_categoria(id_categoria)
 );
@@ -63,14 +65,6 @@ insert into tb_produto (id_marca, id_categoria, nm_produto, vl_preco, ds_cor, nr
 inner join tb_categoria on tb_categoria.id_categoria = tb_produto.id_categoria;
 
 
-create table tb_imagem(
-	id_imagem		int primary key auto_increment,
-    id_produto		int not null,
-    ds_imagem		varchar(1000) not null,
-    foreign key (id_produto) references tb_produto(id_produto)
-);
-drop table tb_imagem;
-select * from tb_imagem;
 
 -- TABLE CLIENT
 
