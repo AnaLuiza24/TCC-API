@@ -55,19 +55,16 @@ export async function adicionarProduto(produto) {
     return produto;
 }
 
+export async function consultarProduto(nome) {
+    let sql = 'select id_produto as id, nm_produto as nome from tb_produto where nm_produto = ?';
 
-export async function adicionarDetalhe(detalhe) {
-    let sql = 'insert into tb_produto_detalhe (id_produto, tp_detalhe, ds_detalhe) values (?, ?, ?)';
+    let [dados] = await connection.query(sql, [nome]);
 
-    let [dados] = await connection.query(sql, [
-        detalhe.idProduto,
-        detalhe.tipo,
-        detalhe.desc
-    ]);
-
-    detalhe.id = dados.insertId;
-    return detalhe;
+    return dados;
 }
+
+export async function 
+
 
 export async function listarPorMarca(marca) {
     let sql = 'select ds_imagem as imagem, nm_produto as nome, vl_preco as preco, vl_preco_promocao as promocao, tb_produto.id_produto from tb_imagem inner join tb_produto on tb_imagem.id_produto = tb_imagem.id_produto where id_marca like ? and id_categoria like 2';

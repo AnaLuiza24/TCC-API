@@ -4,13 +4,14 @@ drop database db_smart_seven;
 
 create table tb_admin (
 	id_admin 	int primary key auto_increment,
+    nm_admin    varchar(200) not null,
 	ds_email 	varchar(200) not null,
 	ds_senha 	varchar(200) not null
 );
 select * from tb_admin;
 
-insert into tb_admin (ds_email, ds_senha)
-value ('analuiza@gmail.com', '1234');
+insert into tb_admin (nm_admin, ds_email, ds_senha)
+value ('Vitória' ,'vitoria@gmail.com', '1234');
 
 
 -- TABLE RED
