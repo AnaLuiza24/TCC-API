@@ -63,7 +63,9 @@ export async function consultarProduto(nome) {
     return dados;
 }
 
-
+export async function adicionarImage(id) {
+    
+}
 
 export async function listarPorMarca(marca) {
     let sql = 'select ds_imagem as imagem, nm_produto as nome, vl_preco as preco, vl_preco_promocao as promocao, tb_produto.id_produto from tb_imagem inner join tb_produto on tb_imagem.id_produto = tb_imagem.id_produto where id_marca like ? and id_categoria like 2';
