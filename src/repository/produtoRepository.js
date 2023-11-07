@@ -69,33 +69,14 @@ export async function adicionarDetalhe(detalhe) {
     return detalhe;
 }
 
-export async function listarIphone() {
-    let sql = 'select ds_imagem as imagem, nm_produto as nome, vl_preco as preco, vl_preco_promocao as promocao, tb_produto.id_produto from tb_imagem inner join tb_produto on tb_imagem.id_produto = tb_imagem.id_produto where id_marca like 1 and id_categoria like 2';
+export async function listarPorMarca(marca) {
+    let sql = 'select ds_imagem as imagem, nm_produto as nome, vl_preco as preco, vl_preco_promocao as promocao, tb_produto.id_produto from tb_imagem inner join tb_produto on tb_imagem.id_produto = tb_imagem.id_produto where id_marca like ? and id_categoria like 2';
 
-    let [dados] = await connection.query(sql);
+    let [dados] = await connection.query(sql, [marca]);
     return dados;
 }
 
-export async function listarSamsung() { 
-    let sql = 'select ds_imagem as imagem, nm_produto as nome, vl_preco as preco, vl_preco_promocao as promocao, tb_produto.id_produto from tb_imagem inner join tb_produto on tb_imagem.id_produto = tb_imagem.id_produto where id_marca like 2 and id_categoria like 2';
 
-    let [dados] = await connection.query(sql);
-    return dados;
-}
-
-export async function listarMotorola() {
-    let sql = 'select ds_imagem as imagem, nm_produto as nome, vl_preco as preco, vl_preco_promocao as promocao, tb_produto.id_produto from tb_imagem inner join tb_produto on tb_imagem.id_produto = tb_imagem.id_produto where id_marca like 3 and id_categoria like 2';
-
-    let [dados] = await connection.query(sql);
-    return dados;
-}
-
-export async function listarXiaomi() {
-    let sql = 'select ds_imagem as imagem, nm_produto as nome, vl_preco as preco, vl_preco_promocao as promocao, tb_produto.id_produto from tb_imagem inner join tb_produto on tb_imagem.id_produto = tb_imagem.id_produto where id_marca like 4 and id_categoria like 2';
-
-    let [dados] = await connection.query(sql);
-    return dados;
-}
 
 export async function listarSmartphones() {
     let sql = 'select ds_imagem as imagem, nm_produto as nome, vl_preco as preco, vl_preco_promocao as promocao, tb_produto.id_produto from tb_imagem inner join tb_produto on tb_imagem.id_produto = tb_imagem.id_produto where  id_categoria like 2';
@@ -109,17 +90,5 @@ export async function listarAcessorios() {
 
     let [dados] = await connection.query(sql);
     return dados;
-}
-
-export async function listarCapinhas() {
-    let sql = 'select ds_imagem as imagem, nm_produto as nome, vl_preco as preco, vl_preco_promocao as promocao, tb_produto.id_produto from tb_imagem inner join tb_produto on tb_imagem.id_produto = tb_imagem.id_produto where  id_categoria like ';
-}
-
-export async function listarCarregadores() {
-    let sql = 'select ds_imagem as imagem, nm_produto as nome, vl_preco as preco, vl_preco_promocao as promocao, tb_produto.id_produto from tb_imagem inner join tb_produto on tb_imagem.id_produto = tb_imagem.id_produto where  id_categoria like ';
-}
-
-export async function listarFones() {
-    let sql = 'select ds_imagem as imagem, nm_produto as nome, vl_preco as preco, vl_preco_promocao as promocao, tb_produto.id_produto from tb_imagem inner join tb_produto on tb_imagem.id_produto = tb_imagem.id_produto where  id_categoria like ';
 }
 
