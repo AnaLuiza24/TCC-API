@@ -63,7 +63,7 @@ export async function consultarProduto(nome) {
     return dados;
 }
 
-export async function 
+
 
 
 export async function listarPorMarca(marca) {
