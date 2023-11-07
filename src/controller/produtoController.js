@@ -1,7 +1,9 @@
 import { Router } from "express";
-import { deletarProduto,  adicionarProduto, listarMarcas, listarCategorias, nomeProduto, listarSmartphones, listarPorMarca, consultarProduto } from "../repository/produtoRepository.js";
+import multer from "multer";
+import { deletarProduto,  adicionarProduto, listarMarcas, listarCategorias, nomeProduto, listarSmartphones, listarPorMarca, consultarProduto, alterarImageUm } from "../repository/produtoRepository.js";
 
 let endpoints = Router();
+let upload = multer({dest: 'storage/produtos'}) 
 
 endpoints.get('/categoria/listar', async (req, resp) => {
     try{
@@ -66,7 +68,7 @@ endpoints.post('/produto', async (req, resp) => {
         if(!produto.cor) 
         throw new Error('Cor do produto é obrigatório');
 
-        if(!produto.qtd) 
+        if(produto.qtd < 0 || produto.qtd === undefined) 
         throw new Error('Informe a quantia em estoque');
 
         if(!produto.desc) 
@@ -79,6 +81,25 @@ endpoints.post('/produto', async (req, resp) => {
 
         let r = await adicionarProduto(produto);
         resp.send(r);
+
+    }catch(err) {
+        resp.status(404).send({erro: err.message})
+    }
+
+})
+
+endpoints.put('/alterar/:id/imagemum', upload.single('fotoProduto') , async (req, resp) => {
+    try{
+        let {id} = req.params;
+        let imagem = req.file.path;
+
+
+        let r = await alterarImageUm(imagem, id);
+
+        if(r != 1)
+        throw new Error('A imagem não pode ser salva')
+
+        resp.status(204).send();
 
     }catch(err) {
         resp.status(404).send({erro: err.message})
