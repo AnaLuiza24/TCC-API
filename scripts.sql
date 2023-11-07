@@ -8,11 +8,11 @@ create table tb_admin (
 	ds_email 	varchar(200) not null,
 	ds_senha 	varchar(200) not null
 );
-select * from tb_admin;
+drop table tb_admin;
 
+select * from tb_admin;
 insert into tb_admin (nm_admin, ds_email, ds_senha)
 value ('Vitória' ,'vitoria@gmail.com', '1234');
-
 
 -- TABLE RED
 
@@ -62,15 +62,6 @@ insert into tb_produto (id_marca, id_categoria, nm_produto, vl_preco, ds_cor, nr
 	  from tb_produto 
 inner join tb_categoria on tb_categoria.id_categoria = tb_produto.id_categoria;
 
-create table tb_produto_detalhe(
-	id_produto_detalhe	int primary key auto_increment,
-    id_produto			int not null,
-    tp_detalhe			varchar(200) not null,
-    ds_detalhe			varchar(500) not null, 
-	foreign key (id_produto) references tb_produto(id_produto)
-);
-drop table tb_produto_detalhe;
-select * from tb_produto_detalhe;
 
 create table tb_imagem(
 	id_imagem		int primary key auto_increment,

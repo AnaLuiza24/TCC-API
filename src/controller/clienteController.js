@@ -1,4 +1,4 @@
-import { AdicionarCliente, buscarNome, listarCliente,verificarLogin } from "../repository/clienteRepository.js";
+import { AdicionarCliente, buscarNome, verificarLogin, consultar } from "../repository/clienteRepository.js";
 import { Router } from "express";
 
 let endpoints = Router();

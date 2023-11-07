@@ -15,6 +15,13 @@ export async function AdicionarCliente(pessoa) {
     return pessoa;
 }
 
+export async function consultar(cliente) {
+    let sql =  'select nm_cliente as nome, ds_email as email, ds_telefone as telefone from tb_cliente where ds_email like ?';
+
+    let [dados] = await connection.query(sql, [cliente]);
+    return dados;
+}
+
 export async function listarCliente() {
     let sql = 'select nm_cliente as nome, ds_email as email, dt_nascimento as nasc, ds_telefone as telefone from tb_cliente';
 
