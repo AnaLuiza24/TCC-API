@@ -86,29 +86,6 @@ endpoints.post('/produto', async (req, resp) => {
 
 })
 
-endpoints.post('/detalhe', async (req, resp) => {
-    try{
-        let detalhe = req.body;
-
-        let r = await adicionarDetalhe(detalhe);
-        resp.send(r)
-
-    }catch(err){
-        resp.status(404).send({erro: 'Ocorreu um erro'})
-    }
-})
-
-endpoints.get('/smartphones/listar', async (req, resp) => {
-    try{
-        let {marca} = req.query
-        let r = await listarPorMarca(marca);
-        resp.send(r);
-
-    }catch(err){
-        resp.status(500).send({erro: "Ocorreu um erro"})
-    }
-})
-
 endpoints.get('/smartphones', async (req, resp) => {
     try{
         let r = await listarSmartphones();

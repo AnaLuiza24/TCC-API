@@ -3,14 +3,37 @@ import { Router } from "express";
 
 let endpoints = Router();
 
-endpoints.put('/adicionar/cliente', async (req, resp) => {
+endpoints.post('/adicionar/cliente', async (req, resp) => {
     try {
         let cliente = req.body;
+
+        if(!cliente.nome)
+        throw new Error('Nome obrigatório')
+
+        if(!cliente.email)
+        throw new Error('Email obrigatório')
+
+        if(!cliente.email.includes('@'))
+            throw new Error('Email Inválido');
+
+        if(!/mail\.com$/i.test(cliente.email))
+            throw new Error('Email Inválido');
+
+        if(!cliente.senha)
+        throw new Error('Senha obrigatória');
+
+        let r1 = await consultar(cliente.email);
+        if (r1.length > 0)
+            throw new Error(' Email já cadastrado!');
+
+        if (!cliente.telefone)
+            throw new Error('Telefone Inválido');
+
         let r = await AdicionarCliente(cliente);
         resp.send(r);
 
     } catch (err) {
-        resp.status(404).send({erro: 'Ocorreu um erro'})
+        resp.status(404).send({erro: err.message})
     }
 })
 
