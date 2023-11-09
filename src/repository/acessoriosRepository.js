@@ -1,0 +1,7 @@
+import connection from "./connection.js";
+
+export async function ConsultarAcessorios() {
+    let sql = 'select nm_porduto as produto, vl_preco as preco, ds_cor as cores, nr_quantidade as qtd, ds_produto as desc, vl_preco_promocao as promocao, url_imagem_um as img1, url_imagem_dois as img2, from tb_produto inner join tb_categoria on tb_categoria.id_categoria = tb_produto.id_categoria;'
+    let [dados] = await connection.query(sql);
+    return dados;
+}
