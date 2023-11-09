@@ -9,6 +9,9 @@ import pedidoController from './controller/pedidoController.js';
 let server = express();
 server.use(cors());
 server.use(express.json());
+
+server.use('/storage/produtos', express.static('storage/produtos'));
+
 server.use(admController);
 server.use(clienteController);
 server.use(produtoController);
