@@ -34,8 +34,6 @@ create table tb_marca(
 );
 select * from tb_marca;
 insert into tb_marca (nm_marca)
-	 values ('Smartphones');
-insert into tb_marca (nm_marca)
 	 values ('Smartphones Iphone');
 insert into tb_marca (nm_marca)
 	 values ('Smartphones Samsung');
@@ -43,10 +41,6 @@ insert into tb_marca (nm_marca)
 	 values ('Smartphones Motorola');
 insert into tb_marca (nm_marca)
 	 values ('Smartphones Xiaomi');
-insert into tb_marca (nm_marca)
-	 values ('Acessorios');
-insert into tb_marca (nm_marca)
-	 values ('Capinhas');
 insert into tb_marca (nm_marca)
 	 values ('Capinhas Iphone');
 insert into tb_marca (nm_marca)
@@ -56,15 +50,11 @@ insert into tb_marca (nm_marca)
 insert into tb_marca (nm_marca)
 	 values ('Capinhas Xiaomi');
 insert into tb_marca (nm_marca)
-	 values ('Carregadores');
-insert into tb_marca (nm_marca)
 	 values ('Carregadores Cabo Light ');
 insert into tb_marca (nm_marca)
 	 values ('Carregadores Tipo C ');
 insert into tb_marca (nm_marca)
 	 values ('Carregadores Tipo USB ');
-insert into tb_marca (nm_marca)
-	 values ('Fones ');
 insert into tb_marca (nm_marca)
 	 values ('Fones Bluetooh ');
 insert into tb_marca (nm_marca)
