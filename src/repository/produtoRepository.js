@@ -84,17 +84,8 @@ export async function listarPorMarca(marca) {
     return dados;
 }
 
-
-
 export async function listarSmartphones() {
-    let sql = 'select ds_imagem as imagem, nm_produto as nome, vl_preco as preco, vl_preco_promocao as promocao, tb_produto.id_produto from tb_imagem inner join tb_produto on tb_imagem.id_produto = tb_imagem.id_produto where  id_categoria like 2';
-
-    let [dados] = await connection.query(sql);
-    return dados;
-}
-
-export async function listarAcessorios() {
-    let sql = 'select ds_imagem as imagem, nm_produto as nome, vl_preco as preco, vl_preco_promocao as promocao, tb_produto.id_produto from tb_imagem inner join tb_produto on tb_imagem.id_produto = tb_imagem.id_produto where  id_categoria like 1';
+    let sql = 'select ds_imagem as imagem, nm_produto as nome, vl_preco as preco, vl_preco_promocao as promocao, tb_produto.id_produto from tb_imagem inner join tb_produto on tb_imagem.id_produto = tb_imagem.id_produto where id_categoria like 2';
 
     let [dados] = await connection.query(sql);
     return dados;

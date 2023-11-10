@@ -6,6 +6,7 @@ import admController from './controller/admController.js';
 import produtoController from './controller/produtoController.js';
 import pedidoController from './controller/pedidoController.js';
 
+
 let server = express();
 server.use(cors());
 server.use(express.json());
