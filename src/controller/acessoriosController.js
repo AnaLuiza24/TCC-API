@@ -1,15 +1,20 @@
 import { Router } from "express";
+import {  ConsultarAcessorios } from '../repository/acessoriosRepository.js';
 
 
 let endpoints = Router();
 
-endpoints.get('/listar/acessorios', async (req, resp ) => {
-    try {
-        
+endpoints.get('/consultar/acessorios', async (req, resp) => {
+    try{
+        let produto = req.query.produto;
+        let r = await ConsultarAcessorios(produto);
+        resp.send(r);
 
-
-
-    }catch (err) {
-        resp.status(404).send({erro: err.message})
+    }catch(err){
+        resp.status(500).send({erro: 'Ocorreu um erro'})
     }
-})
+});
+
+
+
+export default endpoints;
