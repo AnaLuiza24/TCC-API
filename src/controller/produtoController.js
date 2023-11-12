@@ -1,6 +1,6 @@
 import { Router } from "express";
 import multer from "multer";
-import { deletarProduto,  adicionarProduto, listarMarcas, listarCategorias, nomeProduto, listarSmartphones, listarPorMarca, consultarProduto, alterarImageUm, alterarImageDois } from "../repository/produtoRepository.js";
+import { deletarProduto,  adicionarProduto, listarMarcas, listarCategorias, nomeProduto, consultarProduto, alterarImageUm, alterarImageDois } from "../repository/produtoRepository.js";
 
 let endpoints = Router();
 let upload = multer({dest: 'storage/produtos'}) 
@@ -88,11 +88,10 @@ endpoints.post('/produto', async (req, resp) => {
 
 })
 
-endpoints.put('/alterar/:id/imagemum', upload.single('fotoProduto') , async (req, resp) => {
+endpoints.put('/produto/:id/imagemum', upload.single('fotoProduto') , async (req, resp) => {
     try{
         let {id} = req.params;
         let imagem = req.file.path;
-
 
         let r = await alterarImageUm(imagem, id);
 
@@ -124,16 +123,6 @@ endpoints.put('/alterar/:id/imagemdois', upload.single('fotoProduto') , async (r
         resp.status(404).send({erro: err.message})
     }
 
-})
-
-endpoints.get('/smartphones', async (req, resp) => {
-    try{
-        let r = await listarSmartphones();
-        resp.send(r);
-
-    }catch(err){
-        resp.status(500).send({erro: "Ocorreu um erro"})
-    }
 })
 
 export default endpoints;
