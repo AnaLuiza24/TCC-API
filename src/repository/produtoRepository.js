@@ -66,14 +66,14 @@ export async function consultarProduto(nome) {
 export async function alterarImageUm(imagem, id) {
     let sql = 'update tb_produto set url_imagem_um = ? where id_produto = ?';
 
-    const [dados] = await conexao.query(sql, [imagem, id]);
+    const [dados] = await connection.query(sql, [imagem, id]);
     return dados.affectedRows;
 }
 
 export async function alterarImageDois(imagem, id) {
     let sql = 'update tb_produto set url_imagem_dois = ? where id_produto = ?';
 
-    const [dados] = await conexao.query(sql, [imagem, id]);
+    const [dados] = await connection.query(sql, [imagem, id]);
     return dados.affectedRows;
 }
 

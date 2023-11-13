@@ -1,5 +1,5 @@
 import { Router } from "express";
-import multer from "multer";
+import multer, { memoryStorage } from "multer";
 import { deletarProduto,  adicionarProduto, listarMarcas, listarCategorias, nomeProduto, listarSmartphones, listarPorMarca, consultarProduto, alterarImageUm, alterarImageDois } from "../repository/produtoRepository.js";
 
 let endpoints = Router();
@@ -96,8 +96,9 @@ endpoints.put('/alterar/:id/imagemum', upload.single('fotoProduto') , async (req
 
         let r = await alterarImageUm(imagem, id);
 
-        if(r != 1)
-        throw new Error('A imagem não pode ser salva')
+        if(r != 1){
+            throw new Error('A imagem não pode ser salva')
+        }
 
         resp.status(204).send();
 
