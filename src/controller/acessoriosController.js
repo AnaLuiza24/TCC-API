@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {  ConsultarAcessorios, ListarTodosAcessorios } from '../repository/acessoriosRepository.js';
+import {  ConsultarAcessorios, ListarTodosAcessorios, ProdutoAcessorios} from '../repository/acessoriosRepository.js';
 
 
 let endpoints = Router();
@@ -28,6 +28,17 @@ endpoints.get('/acessorios', async (req, resp) => {
         resp.status(500).send({erro: 'Ocorreu um erro'})
     }
 });
+
+endpoints.get('/acessorios/:marca', async (req, resp) => {
+    try{
+        let {marca} = req.params;
+        let r = await ProdutoAcessorios(marca);
+        resp.send(r);
+        
+    }catch(err){
+        resp.status(500).send({erro: "Ocorreu um erro"});
+    }
+})
 
 
 export default endpoints;
