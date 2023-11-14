@@ -24,6 +24,9 @@ select * from tb_categoria;
 drop table tb_categoria;
 insert into tb_categoria (ds_categoria)
 	 values ('Acessórios');
+insert into tb_categoria (ds_categoria)
+	 values ('Smartphones');
+
 
 create table tb_marca(
 	id_marca	int primary key auto_increment,
@@ -31,9 +34,42 @@ create table tb_marca(
 );
 select * from tb_marca;
 insert into tb_marca (nm_marca)
-	 values ('Iphone');
+	 values ('Smartphones Iphone');
 insert into tb_marca (nm_marca)
-	 values ('Samsung');
+	 values ('Smartphones Samsung');
+insert into tb_marca (nm_marca)
+	 values ('Smartphones Motorola');
+insert into tb_marca (nm_marca)
+	 values ('Smartphones Xiaomi');
+insert into tb_marca (nm_marca)
+	 values ('Capinhas Iphone');
+insert into tb_marca (nm_marca)
+	 values ('Capinhas Samsung');
+insert into tb_marca (nm_marca)
+	 values ('Capinhas Motorola');
+insert into tb_marca (nm_marca)
+	 values ('Capinhas Xiaomi');
+insert into tb_marca (nm_marca)
+	 values ('Carregadores Cabo Light ');
+insert into tb_marca (nm_marca)
+	 values ('Carregadores Tipo C ');
+insert into tb_marca (nm_marca)
+	 values ('Carregadores Tipo USB ');
+insert into tb_marca (nm_marca)
+	 values ('Fones Bluetooh ');
+insert into tb_marca (nm_marca)
+	 values ('Fones Com fio');
+     
+
+
+Iphone
+Samsung
+Motorola
+Xiomi
+Capinha IPhone
+Carregador Cabo Light
+Fone Bluetooth
+
 
 create table tb_produto(
 	id_produto 			int primary key auto_increment,
@@ -53,6 +89,9 @@ create table tb_produto(
 select * from tb_produto;
 drop table tb_produto;
 delete from tb_produto where id_produto = ?;
+
+select nm_produto as produto, vl_preco as preco, ds_cor as cores, nr_quantidade as qtd, ds_produto as descri, vl_preco_promocao as promocao, url_imagem_um as img1, url_imagem_dois as img2, id_produto as id 
+    from tb_produto inner join tb_categoria on tb_categoria.id_categoria = tb_produto.id_categoria;
 
 select nm_produto as produto, vl_preco as preco, ds_categoria as categoria, nr_quantidade as qtd, id_produto as id 
   from tb_produto inner join tb_categoria on tb_categoria.id_categoria = tb_produto.id_categoria;

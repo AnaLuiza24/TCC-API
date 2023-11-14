@@ -2,13 +2,21 @@ import connection from "./connection.js";
 
 
 export async function listarMarcas() {
-    let sql = 'select nm_marca as marca, id_marca as id from tb_marca';
+    let sql =  `select 
+                    nm_marca as marca, 
+                    id_marca as id 
+                from tb_marca`;
+
     let [dados] = await connection.query(sql);
     return dados;
 }
 
 export async function listarCategorias() {
-    let sql = 'select ds_categoria as categoria, id_categoria as id from tb_categoria';
+    let sql =  `select 
+                    ds_categoria as categoria, 
+                    id_categoria as id 
+                from tb_categoria`;
+
     let [dados] = await connection.query(sql);
     return dados;
 }
@@ -37,8 +45,9 @@ export async function deletarProduto(id) {
 }
 
 export async function adicionarProduto(produto) {
-    let sql = `insert into tb_produto (id_marca, id_categoria, nm_produto, vl_preco, ds_cor, nr_quantidade, ds_produto, vl_preco_promocao)
-    values (?, ?, ?, ?, ?, ?, ?, ?)`;
+    let sql =  `insert into tb_produto 
+                    (id_marca, id_categoria, nm_produto, vl_preco, ds_cor, nr_quantidade, ds_produto, vl_preco_promocao)
+                values (?, ?, ?, ?, ?, ?, ?, ?)`;
 
     let [dados] = await connection.query(sql, [
         produto.marca,
@@ -64,7 +73,9 @@ export async function consultarProduto(nome) {
 }
 
 export async function alterarImageUm(imagem, id) {
-    let sql = 'update tb_produto set url_imagem_um = ? where id_produto = ?';
+    let sql =  `update tb_produto 
+                    set url_imagem_um = ? 
+                where id_produto = ?`;
 
     const [dados] = await connection.query(sql, [imagem, id]);
     return dados.affectedRows;
@@ -78,16 +89,17 @@ export async function alterarImageDois(imagem, id) {
 }
 
 export async function listarPorMarca(marca) {
-    let sql = 'select ds_imagem as imagem, nm_produto as nome, vl_preco as preco, vl_preco_promocao as promocao, tb_produto.id_produto from tb_imagem inner join tb_produto on tb_imagem.id_produto = tb_imagem.id_produto where id_marca like ? and id_categoria like 2';
+    let sql =  `select 
+                    ds_imagem as imagem, 
+                    nm_produto as nome, 
+                    vl_preco as preco, 
+                    vl_preco_promocao as promocao, 
+                    tb_produto.id_produto 
+                from tb_imagem 
+                    inner join tb_produto on tb_imagem.id_produto = tb_imagem.id_produto 
+                where id_marca like ? and id_categoria like 2`;
 
     let [dados] = await connection.query(sql, [marca]);
-    return dados;
-}
-
-export async function listarSmartphones() {
-    let sql = 'select ds_imagem as imagem, nm_produto as nome, vl_preco as preco, vl_preco_promocao as promocao, tb_produto.id_produto from tb_imagem inner join tb_produto on tb_imagem.id_produto = tb_imagem.id_produto where id_categoria like 2';
-
-    let [dados] = await connection.query(sql);
     return dados;
 }
 

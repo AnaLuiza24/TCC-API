@@ -37,17 +37,6 @@ endpoints.post('/adicionar/cliente', async (req, resp) => {
     }
 })
 
-endpoints.get('/listar/cliente', async (req, resp) => {
-    try{
-        let nome = req.query.nome;
-        let r = await buscarNome(nome);
-        resp.send(r);
-
-    }catch(err){
-        resp.status(500).send({erro: 'Ocorreu um erro'})
-    }
-})
-
 endpoints.post('/login', async (req, resp) => {
     try {
       let {email,senha} = req.body;
@@ -72,6 +61,15 @@ endpoints.post('/login', async (req, resp) => {
   });
 
 
+  endpoints.get('/listar/cliente', async (req, resp) => {
+    try{
+        let nome = req.query.nome;
+        let r = await buscarNome(nome);
+        resp.send(r);
 
+    }catch(err){
+        resp.status(500).send({erro: 'Ocorreu um erro'})
+    }
+})
 
 export default endpoints;
