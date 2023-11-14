@@ -1,15 +1,27 @@
 import { Router } from "express";
-import { TodosSmartphones } from "../repository/celularesRepository";
+import { ConsultarSmartphones, listarSmartphones } from "../repository/celularesRepository.js";
 
 let endpoints = Router();
 
-endpoints.get('/smartphone/listar', async (req, resp) => {
+endpoints.get('/smartphone/:marca', async (req, resp) => {
     try{
-        let {marca} = req.query;
-        let r = await TodosSmartphones(marca);
+        let {marca} = req.params;
+        let r = await ConsultarSmartphones(marca);
         resp.send(r);
 
     }catch(err){
         resp.status(500).send({erro: "Ocorreu um erro"});
     }
-}) 
+})
+
+endpoints.get('/smartphones', async (req, resp) => {
+    try{
+        let r = await listarSmartphones();
+        resp.send(r);
+
+    }catch(err) {
+        resp.status(500).send({erro: "Ocorreu um erro"});
+    }
+})
+
+export default endpoints;
