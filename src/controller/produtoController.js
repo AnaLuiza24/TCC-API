@@ -1,6 +1,6 @@
 import { Router } from "express";
 import multer from "multer";
-import { deletarProduto,  adicionarProduto, listarMarcas, listarCategorias, nomeProduto, listarSmartphones, listarPorMarca, consultarProduto, alterarImageUm, alterarImageDois } from "../repository/produtoRepository.js";
+import { deletarProduto,  adicionarProduto, listarMarcas, listarCategorias, nomeProduto, consultarProduto, alterarImageUm, alterarImageDois } from "../repository/produtoRepository.js";
 
 let endpoints = Router();
 let upload = multer({dest: 'storage/produtos'}) 
@@ -96,8 +96,9 @@ endpoints.put('/alterar/:id/imagemum', upload.single('fotoProduto') , async (req
 
         let r = await alterarImageUm(imagem, id);
 
-        if(r != 1)
-        throw new Error('A imagem não pode ser salva')
+        if(r != 1){
+            throw new Error('A imagem não pode ser salva')
+        }
 
         resp.status(204).send();
 
@@ -124,16 +125,6 @@ endpoints.put('/alterar/:id/imagemdois', upload.single('fotoProduto') , async (r
         resp.status(404).send({erro: err.message})
     }
 
-})
-
-endpoints.get('/smartphones', async (req, resp) => {
-    try{
-        let r = await listarSmartphones();
-        resp.send(r);
-
-    }catch(err){
-        resp.status(500).send({erro: "Ocorreu um erro"})
-    }
 })
 
 export default endpoints;
