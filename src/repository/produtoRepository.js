@@ -28,10 +28,16 @@ export async function listarProduto() {
     return dados;
 }
 
-
-
-export async function nomeProduto(nome) {
-    let sql = 'select nm_produto as produto, vl_preco as preco, ds_categoria as categoria, nr_quantidade as qtd, id_produto as id from tb_produto inner join tb_categoria on tb_categoria.id_categoria = tb_produto.id_categoria where nm_produto like ?';
+export async function buscarPorNomeProduto(nome) {
+    let sql =  `select 
+                    nm_produto as produto, 
+                    vl_preco as preco, 
+                    ds_categoria as categoria, 
+                    nr_quantidade as qtd, 
+                    id_produto as id from tb_produto 
+                inner join tb_categoria 
+                    on tb_categoria.id_categoria = tb_produto.id_categoria 
+                where nm_produto like ?`;
 
     let [dados] = await connection.query(sql, ["%" + nome + "%"]);
     return dados;
@@ -82,7 +88,9 @@ export async function alterarImageUm(imagem, id) {
 }
 
 export async function alterarImageDois(imagem, id) {
-    let sql = 'update tb_produto set url_imagem_dois = ? where id_produto = ?';
+    let sql =  `update tb_produto 
+                    set url_imagem_dois = ? 
+                where id_produto = ?`;
 
     const [dados] = await connection.query(sql, [imagem, id]);
     return dados.affectedRows;
