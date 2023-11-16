@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { ConsultarSmartphones, listarSmartphones } from "../repository/celularesRepository.js";
+import { ConsultarSmartphones, listarTodosSmartphones } from "../repository/celularesRepository.js";
 
 let endpoints = Router();
 
@@ -16,7 +16,7 @@ endpoints.get('/smartphone/:marca', async (req, resp) => {
 
 endpoints.get('/smartphones', async (req, resp) => {
     try{
-        let r = await listarSmartphones();
+        let r = await listarTodosSmartphones();
         resp.send(r);
 
     }catch(err) {
