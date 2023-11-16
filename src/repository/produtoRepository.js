@@ -112,16 +112,24 @@ export async function listarPorMarca(marca) {
 }
 
 export async function alterarProduto(id, produto) {
-    let sql =  `update tb_produto
-                    SET nm_produto      = ?,
-                    vl_preco            = ?,
-                    ds_cor              = ?,
-                    nr_quantidade       = ?,
-                    ds_produto          = ?,
-                    vl_preco_promocao   = ?
-                WHERE id_produto          = ?`
+    if (produto && produto.nm_produto) {
+        let sql = `
+            UPDATE tb_produto
+            SET nm_produto = ?,
+                vl_preco = ?,
+                ds_produto = ?,
+                vl_preco_promocao = ?
+            WHERE id_produto = ?`;
 
-    const [dados] = await connection.query(sql, [produto, id]);
-    return dados.affectedRows;
+        const [dados] = await connection.query(sql, [
+            produto.nm_produto,
+            produto.vl_preco,
+            produto.ds_produto,
+            produto.vl_preco_promocao,
+            id
+        ]);
+
+        return dados.affectedRows;
+    } 
 }
 

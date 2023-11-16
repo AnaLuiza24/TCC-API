@@ -71,5 +71,28 @@ export async function verificarLogin(email,senha) {
   
     return linha;
 }
+export async function alterarcliente(id, cliente) {
+    if (cliente && cliente.nm_cliente) {
+        let sql = `
+            UPDATE tb_cliente
+            SET nm_cliente = ?,
+                ds_email = ?,
+                dt_nascimento  = ?,
+                ds_telefone  = ?
+            WHERE id_cliente = ?`;
+
+        const [dados] = await connection.query(sql, [
+            cliente.nm_cliente,
+            cliente.ds_email ,
+            cliente.dt_nascimento,
+            cliente.ds_telefone,
+            id
+        ]);
+
+        return dados.affectedRows;
+    } 
+}
+
+
 
 

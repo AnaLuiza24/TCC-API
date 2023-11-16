@@ -135,15 +135,19 @@ endpoints.put('/alterar/:id', async (req, resp) => {
     
     try {
         let {id} = req.params;
-        let produto = req.file.path;
+        let produto = req.body;
 
         
-        let r = await alterarProduto(produto, id);
+        let r = await alterarProduto(  
+            produto.nm_produto,
+            produto.vl_preco,
+            produto.ds_produto,
+            produto.vl_preco_promocao,
+            id);
 
-        if(r != 1)
 
 
-        resp.status(204).send();
+        resp.status(204).send(r);
  
     }
 

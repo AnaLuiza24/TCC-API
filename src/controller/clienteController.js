@@ -1,4 +1,4 @@
-import { AdicionarCliente, buscarNome, verificarLogin, consultar } from "../repository/clienteRepository.js";
+import { AdicionarCliente, buscarNome, verificarLogin, consultar,alterarcliente } from "../repository/clienteRepository.js";
 import { Router } from "express";
 
 let endpoints = Router();
@@ -70,6 +70,33 @@ endpoints.post('/login', async (req, resp) => {
     }catch(err){
         resp.status(500).send({erro: 'Ocorreu um erro'})
     }
+})
+
+endpoints.put('/alterar/cliente/:id', async (req, resp) => {
+    
+    try {
+        let {id} = req.params;
+        let cliente = req.body;
+
+        
+        let r = await alterarcliente(  
+            cliente.nm_cliente,
+            cliente.ds_email ,
+            cliente.dt_nascimento,
+            cliente.ds_telefone,
+            id);
+
+
+
+        resp.status(204).send(r);
+ 
+    }
+
+
+    catch(err) {
+        resp.status(404).send({erro: err.message})
+    }
+
 })
 
 
