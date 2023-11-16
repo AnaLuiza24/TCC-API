@@ -1,6 +1,6 @@
 import { Router } from "express";
 import multer from "multer";
-import { deletarProduto,  adicionarProduto, listarMarcas, listarCategorias, buscarPorNomeProduto, consultarProduto, alterarImageUm, alterarImageDois } from "../repository/produtoRepository.js";
+import { deletarProduto,  adicionarProduto, listarMarcas, listarCategorias, buscarPorNomeProduto, consultarProduto, alterarImageUm, alterarImageDois, alterarProduto } from "../repository/produtoRepository.js";
 
 let endpoints = Router();
 let upload = multer({dest: 'storage/produtos'}) 
@@ -74,6 +74,9 @@ endpoints.post('/produto', async (req, resp) => {
         if(!produto.desc) 
         throw new Error('Descrição do produto é obrigatório');
 
+        if(!produto.precopromo) 
+        throw new Error('Preço Promocional do produto é obrigatório');
+
         let r1 = await consultarProduto(produto.nome);
 
         if (r1.length > 0)
@@ -102,7 +105,8 @@ endpoints.put('/alterar/:id/imagemum', upload.single('fotoProduto') , async (req
 
         resp.status(204).send();
 
-    }catch(err) {
+    }
+    catch(err) {
         resp.status(404).send({erro: err.message})
     }
 
@@ -126,5 +130,29 @@ endpoints.put('/alterar/:id/imagemdois', upload.single('fotoProduto') , async (r
     }
 
 })
+
+endpoints.put('/alterar/:id', async (req, resp) => {
+    
+    try {
+        let {id} = req.params;
+        let produto = req.file.path;
+
+        
+        let r = await alterarProduto(produto, id);
+
+        if(r != 1)
+
+
+        resp.status(204).send();
+ 
+    }
+
+
+    catch(err) {
+        resp.status(404).send({erro: err.message})
+    }
+
+})
+
 
 export default endpoints;

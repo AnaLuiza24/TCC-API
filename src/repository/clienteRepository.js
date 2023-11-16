@@ -72,16 +72,4 @@ export async function verificarLogin(email,senha) {
     return linha;
 }
 
-export async function alterarSenha(senha) {
 
-    let sql =  `select 
-    id_cliente as id,
-    nm_cliente as nome,
-    ds_email as email, 
-    ds_senha as senha
-        from tb_cliente
-        where ds_senha = ?`;
-
-let respostas = await connection.query(sql, [email,senha]);
-
-}

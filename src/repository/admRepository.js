@@ -11,4 +11,4 @@ export async function loginAdm(email, senha) {
 
     let [dados] = await connection.query(sql, [email, senha]);
     return dados[0];
-  }
+  };

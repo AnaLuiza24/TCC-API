@@ -96,6 +96,8 @@ select nm_produto as produto, vl_preco as preco, ds_cor as cores, nr_quantidade 
 select nm_produto as produto, vl_preco as preco, ds_categoria as categoria, nr_quantidade as qtd, id_produto as id 
   from tb_produto inner join tb_categoria on tb_categoria.id_categoria = tb_produto.id_categoria;
 
+
+
 insert into tb_produto (id_marca, id_categoria, nm_produto, vl_preco, ds_cor, nr_quantidade, ds_produto, vl_preco_promocao)
 	 values (1, 1, 'Iphone 13', 4499.00, 'Branco', 17, 'Apple iPhone 13 128GB. O sistema de câmera dupla mais avançado em um iPhone', 3559.00);
 
