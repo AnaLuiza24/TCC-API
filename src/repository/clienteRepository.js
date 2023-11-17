@@ -71,8 +71,8 @@ export async function verificarLogin(email,senha) {
   
     return linha;
 }
-export async function alterarcliente(id, cliente) {
-    if (cliente && cliente.nm_cliente) {
+export async function alterarcliente(cliente) {
+    
         let sql = `
             UPDATE tb_cliente
             SET nm_cliente = ?,
@@ -82,16 +82,16 @@ export async function alterarcliente(id, cliente) {
             WHERE id_cliente = ?`;
 
         const [dados] = await connection.query(sql, [
-            cliente.nm_cliente,
-            cliente.ds_email ,
-            cliente.dt_nascimento,
-            cliente.ds_telefone,
-            id
+            cliente.nome,
+            cliente.email ,
+            cliente.nascimento,
+            cliente.telefone,
+            cliente.id
         ]);
 
-        return dados.affectedRows;
-    } 
-}
+        return dados;
+} 
+
 
 
 

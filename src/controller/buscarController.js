@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { buscarProduto, nomeProduto} from "../repository/buscarRepository";
+import { buscarProduto} from "../repository/buscarRepository.js";
 
 let endpoints = Router();
 
-endpoints.get('buscar/produtos', async (req, resp) => {
+endpoints.get('/buscar/produtos', async (req, resp) => {
     try {
         let nomeProduto = req.query.nomeProduto;
         let r = await buscarProduto(nomeProduto);

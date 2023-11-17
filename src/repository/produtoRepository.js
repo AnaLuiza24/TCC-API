@@ -111,8 +111,8 @@ export async function listarPorMarca(marca) {
     return dados;
 }
 
-export async function alterarProduto(id, produto) {
-    if (produto && produto.nm_produto) {
+export async function alterarProduto( produto) {
+
         let sql = `
             UPDATE tb_produto
             SET nm_produto = ?,
@@ -122,14 +122,14 @@ export async function alterarProduto(id, produto) {
             WHERE id_produto = ?`;
 
         const [dados] = await connection.query(sql, [
-            produto.nm_produto,
-            produto.vl_preco,
-            produto.ds_produto,
-            produto.vl_preco_promocao,
-            id
+            produto.nome,
+            produto.preco,
+            produto.descricao,
+            produto.preco_promocao,
+            produto.id
         ]);
 
-        return dados.affectedRows;
+        return dados;
     } 
-}
+
 

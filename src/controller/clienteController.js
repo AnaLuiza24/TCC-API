@@ -72,23 +72,13 @@ endpoints.post('/login', async (req, resp) => {
     }
 })
 
-endpoints.put('/alterar/cliente/:id', async (req, resp) => {
+endpoints.put('/alterar/cliente/', async (req, resp) => {
     
     try {
-        let {id} = req.params;
-        let cliente = req.body;
-
         
-        let r = await alterarcliente(  
-            cliente.nm_cliente,
-            cliente.ds_email ,
-            cliente.dt_nascimento,
-            cliente.ds_telefone,
-            id);
-
-
-
-        resp.status(204).send(r);
+        let cliente = req.body; 
+        let resposta = await alterarcliente(cliente);
+        resp.send(resposta);
  
     }
 
