@@ -8,7 +8,7 @@ export async function ListarTodosAcessorios() {
                         vl_preco_promocao as promocao, 
                         tb_produto.id_produto 
                   from tb_produto 
-                  where id_categoria like 1`;
+                  where id_categoria like 2`;
 
     let [dados] = await connection.query(sql);
     return dados;
