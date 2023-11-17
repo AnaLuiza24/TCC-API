@@ -9,7 +9,7 @@ export async function ConsultarSmartphones(marca) {
                     vl_preco_promocao as promocao, 
                     tb_produto.id_produto 
                 from tb_produto 
-                where id_categoria like 2
+                where id_categoria like 1
                     and id_marca = ?`;
 
     let [dados] = await connection.query(sql, [marca]);
@@ -25,7 +25,7 @@ export async function listarTodosSmartphones() {
                     vl_preco_promocao as promocao, 
                     tb_produto.id_produto 
                 from tb_produto 
-                where id_categoria like 2`;
+                where id_categoria like 1`;
           
     let [dados] = await connection.query(sql);
     return dados;

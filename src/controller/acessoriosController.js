@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { ListarTodosAcessorios, ProdutoAcessorios} from '../repository/acessoriosRepository.js';
+import { ListarTodosAcessorios, ConsultarAcessorios} from '../repository/acessoriosRepository.js';
 
 
 let endpoints = Router();
@@ -18,7 +18,7 @@ endpoints.get('/acessorios', async (req, resp) => {
 endpoints.get('/acessorios/:marca', async (req, resp) => {
     try{
         let {marca} = req.params;
-        let r = await ProdutoAcessorios(marca);
+        let r = await ConsultarAcessorios(marca);
         resp.send(r);
         
     }catch(err){

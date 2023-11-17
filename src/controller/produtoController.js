@@ -131,22 +131,14 @@ endpoints.put('/alterar/:id/imagemdois', upload.single('fotoProduto') , async (r
 
 })
 
-endpoints.put('/alterar/:id', async (req, resp) => {
+endpoints.put('/alterar/produto', async (req, resp) => {
     
     try {
-        let {id} = req.params;
-        let produto = req.file.path;
-
-        
-        let r = await alterarProduto(produto, id);
-
-        if(r != 1)
-
-
-        resp.status(204).send();
+        let produto = req.body;   
+        let resposta = await alterarProduto(produto);
+        resp.send(resposta);
  
     }
-
 
     catch(err) {
         resp.status(404).send({erro: err.message})
