@@ -7,9 +7,6 @@ import produtoController from './controller/produtoController.js'
 import pedidoController from './controller/pedidoController.js';
 import acessoriosController from './controller/acessoriosController.js';
 import celularesController from './controller/celularesController.js';
-import buscarController from './controller/buscarController.js';
-
-
 
 let server = express();
 server.use(cors());
@@ -23,7 +20,6 @@ server.use(produtoController);
 server.use(pedidoController);
 server.use(acessoriosController );
 server.use(celularesController);
-server.use(buscarController);
 
 server.listen(process.env.PORT, 
 () => console.log(`API disponível na porta ${process.env.PORT}`));
