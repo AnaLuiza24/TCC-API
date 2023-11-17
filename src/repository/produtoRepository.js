@@ -22,7 +22,15 @@ export async function listarCategorias() {
 }
 
 export async function listarProduto() {
-    let sql = 'select nm_produto as produto, vl_preco as preco, ds_categoria as categoria, nr_quantidade as qtd, id_produto as id from tb_produto inner join tb_categoria on tb_categoria.id_categoria = tb_produto.id_categoria';
+    let sql =  `select 
+                    nm_produto as produto, 
+                    vl_preco as preco, 
+                    ds_categoria as categoria, 
+                    nr_quantidade as qtd, 
+                    id_produto as id 
+                from tb_produto 
+                inner join tb_categoria 
+                        on tb_categoria.id_categoria = tb_produto.id_categoria`;
 
     let [dados] = await connection.query(sql);
     return dados;
@@ -44,9 +52,10 @@ export async function buscarPorNomeProduto(nome) {
 }
 
 export async function deletarProduto(id) {
-    let sql = 'delete from tb_produto where id_produto = ?';
-    let [dados] = await connection.query(sql, [id]);
+    let sql =  `delete from tb_produto 
+                where id_produto = ?`;
 
+    let [dados] = await connection.query(sql, [id]);
     return dados.affectedRows;
 }
 
@@ -71,10 +80,13 @@ export async function adicionarProduto(produto) {
 }
 
 export async function consultarProduto(nome) {
-    let sql = 'select id_produto as id, nm_produto as nome from tb_produto where nm_produto = ?';
+    let sql =  `select 
+                    id_produto as id, 
+                    nm_produto as nome 
+                from tb_produto 
+                where nm_produto = ?`;
 
     let [dados] = await connection.query(sql, [nome]);
-
     return dados;
 }
 
@@ -105,7 +117,8 @@ export async function listarPorMarca(marca) {
                     tb_produto.id_produto 
                 from tb_imagem 
                     inner join tb_produto on tb_imagem.id_produto = tb_imagem.id_produto 
-                where id_marca like ? and id_categoria like 2`;
+                where id_marca like ? 
+                    and id_categoria like 2`;
 
     let [dados] = await connection.query(sql, [marca]);
     return dados;

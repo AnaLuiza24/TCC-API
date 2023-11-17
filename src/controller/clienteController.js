@@ -3,7 +3,7 @@ import { Router } from "express";
 
 let endpoints = Router();
 
-endpoints.post('/adicionar/cliente', async (req, resp) => {
+endpoints.post('/cliente/adicionar', async (req, resp) => {
     try {
         let cliente = req.body;
 
