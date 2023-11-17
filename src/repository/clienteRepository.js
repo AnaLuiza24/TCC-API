@@ -100,8 +100,8 @@ export async function alterarsenha(cliente) {
         WHERE id_cliente = ?`;
 
     const [dados] = await connection.query(sql, [
-        cliente.senha
-       
+        cliente.senha,
+        cliente.id
     ]);
 
     return dados;
