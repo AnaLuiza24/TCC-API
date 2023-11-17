@@ -1,4 +1,4 @@
-import { AdicionarCliente, buscarNome, verificarLogin, consultar,alterarcliente } from "../repository/clienteRepository.js";
+import { AdicionarCliente, buscarNome, verificarLogin, consultar,alterarcliente,alterarsenha } from "../repository/clienteRepository.js";
 import { Router } from "express";
 
 let endpoints = Router();
@@ -72,12 +72,28 @@ endpoints.post('/login', async (req, resp) => {
     }
 })
 
-endpoints.put('/alterar/cliente/', async (req, resp) => {
+endpoints.put('/cliente', async (req, resp) => {
     
     try {
         
         let cliente = req.body; 
         let resposta = await alterarcliente(cliente);
+        resp.send(resposta);
+ 
+    }
+
+
+    catch(err) {
+        resp.status(404).send({erro: err.message})
+    }
+
+})
+endpoints.put('/cliente/senha', async (req, resp) => {
+    
+    try {
+        
+        let cliente = req.body; 
+        let resposta = await alterarsenha(cliente);
         resp.send(resposta);
  
     }

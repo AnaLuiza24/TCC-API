@@ -92,6 +92,21 @@ export async function alterarcliente(cliente) {
         return dados;
 } 
 
+export async function alterarsenha(cliente) {
+    
+    let sql = `
+        UPDATE tb_cliente
+        SET  ds_senha = ?
+        WHERE id_cliente = ?`;
+
+    const [dados] = await connection.query(sql, [
+        cliente.senha
+       
+    ]);
+
+    return dados;
+} 
+
 
 
 
