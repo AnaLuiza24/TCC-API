@@ -23,11 +23,11 @@ export async function listarCategorias() {
 
 export async function listarProduto() {
     let sql =  `select 
-                    nm_produto as produto, 
-                    vl_preco as preco, 
-                    ds_categoria as categoria, 
+                    nm_produto    as nome, 
+                    vl_preco      as preco, 
+                    ds_categoria  as categoria, 
                     nr_quantidade as qtd, 
-                    id_produto as id 
+                    id_produto    as id 
                 from tb_produto 
                 inner join tb_categoria 
                         on tb_categoria.id_categoria = tb_produto.id_categoria`;
@@ -124,25 +124,31 @@ export async function listarPorMarca(marca) {
     return dados;
 }
 
-export async function alterarProduto( produto) {
+export async function alterarProduto(id, produto) {
 
-        let sql = `
-            UPDATE tb_produto
-            SET nm_produto = ?,
-                vl_preco = ?,
-                ds_produto = ?,
-                vl_preco_promocao = ?
-            WHERE id_produto = ?`;
-
-        const [dados] = await connection.query(sql, [
+        let sql =  `update tb_produto
+                        set id_marca          = ?,
+                            id_categoria      = ?,                        
+                            nm_produto        = ?,
+                            vl_preco          = ?,
+                            ds_cor            = ?,
+                            nr_quantidade     = ?,
+                            ds_produto        = ?,
+                            vl_preco_promocao = ?
+                        where id_produto = ?`;
+        
+        let [dados] = await connection.query(sql, [
+            produto.marca,
+            produto.categoria,
             produto.nome,
             produto.preco,
-            produto.descricao,
-            produto.preco_promocao,
-            produto.id
+            produto.cor,
+            produto.qtd,
+            produto.desc,
+            produto.precopromo,
+            id
         ]);
-
-        return dados;
+        return dados.affectedRows;
     } 
 
 

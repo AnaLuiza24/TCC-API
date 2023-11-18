@@ -1,149 +1,177 @@
 import { Router } from "express";
 import multer from "multer";
-import { deletarProduto,  adicionarProduto, listarMarcas, listarCategorias, buscarPorNomeProduto, consultarProduto, alterarImageUm, alterarImageDois, alterarProduto } from "../repository/produtoRepository.js";
+import { deletarProduto, adicionarProduto, listarMarcas, listarCategorias, buscarPorNomeProduto, consultarProduto, alterarImageUm, alterarImageDois, alterarProduto } from "../repository/produtoRepository.js";
 
 let endpoints = Router();
-let upload = multer({dest: 'storage/produtos'}) 
+let upload = multer({ dest: 'storage/produtos' })
 
 endpoints.get('/categoria/listar', async (req, resp) => {
-    try{
+    try {
         let r = await listarCategorias();
         resp.send(r);
 
-    }catch(err){
-        resp.status(500).send({erro: 'Ocorreu um erro'})
+    } catch (err) {
+        resp.status(500).send({ erro: 'Ocorreu um erro' })
     }
 })
 
 endpoints.get('/marcas/listar', async (req, resp) => {
-    try{
+    try {
         let r = await listarMarcas();
         resp.send(r);
 
 
-    }catch(err){
-        resp.status(500).send({erro: 'Ocorreu um erro'})
+    } catch (err) {
+        resp.status(500).send({ erro: 'Ocorreu um erro' })
     }
 })
 
 endpoints.get('/listar/produtos', async (req, resp) => {
-    try{
+    try {
         let nome = req.query.nome;
         let r = await buscarPorNomeProduto(nome);
         resp.send(r);
 
-    }catch(err) {
-        resp.status(500).send({erro: 'Ocorreu um erro'})
+    } catch (err) {
+        resp.status(500).send({ erro: 'Ocorreu um erro' })
     }
 })
 
 endpoints.delete('/deletar/:id', async (req, resp) => {
-    try{
-        let {id} = req.params;
+    try {
+        let { id } = req.params;
         let r = await deletarProduto(id);
         resp.send();
 
 
-    }catch(err) {
-        resp.status(404).send({erro: 'Ocorreu um erro'})
+    } catch (err) {
+        resp.status(404).send({ erro: 'Ocorreu um erro' })
     }
 })
 
 endpoints.post('/produto', async (req, resp) => {
-    try{
+    try {
         let produto = req.body;
 
-        if(!produto.marca === 0) 
-        throw new Error('Selecione a marca do produto');
-    
-        if(!produto.categoria === 0) 
-        throw new Error('Selecione uma categoria');
+        if (produto.marca === 0 || produto.marca === undefined)
+            throw new Error('Selecione a marca do produto');
 
-        if(!produto.nome) 
-        throw new Error('Nome do produto é obrigatório');
+        if (produto.categoria === 0 || produto.categoria === undefined)
+            throw new Error('Selecione uma categoria');
 
-        if(!produto.preco) 
-        throw new Error('Preço do produto é obrigatório');
+        if (!produto.nome)
+            throw new Error('Nome do produto é obrigatório');
 
-        if(!produto.cor) 
-        throw new Error('Cor do produto é obrigatório');
+        if (!produto.preco)
+            throw new Error('Preço do produto é obrigatório');
 
-        if(produto.qtd < 0 || produto.qtd === undefined) 
-        throw new Error('Informe a quantia em estoque');
+        if (!produto.cor)
+            throw new Error('Cor do produto é obrigatório');
 
-        if(!produto.desc) 
-        throw new Error('Descrição do produto é obrigatório');
+        if (produto.qtd < 0 || produto.qtd === undefined)
+            throw new Error('Informe a quantia em estoque');
 
-        if(!produto.precopromo) 
-        throw new Error('Preço Promocional do produto é obrigatório');
+        if (!produto.desc)
+            throw new Error('Descrição do produto é obrigatório');
+
+        if (!produto.precopromo)
+            throw new Error('Preço Promocional do produto é obrigatório');
 
         let r1 = await consultarProduto(produto.nome);
 
         if (r1.length > 0)
-        throw new Error('Produto já cadastrado!');
+            throw new Error('Produto já cadastrado!');
 
         let r = await adicionarProduto(produto);
         resp.send(r);
 
-    }catch(err) {
-        resp.status(404).send({erro: err.message})
+    } catch (err) {
+        resp.status(404).send({ erro: err.message })
     }
 
 })
 
-endpoints.put('/alterar/:id/imagemum', upload.single('fotoProduto') , async (req, resp) => {
-    try{
-        let {id} = req.params;
+endpoints.put('/alterar/:id/imagemum', upload.single('fotoProduto'), async (req, resp) => {
+    try {
+        let { id } = req.params;
         let imagem = req.file.path;
 
 
         let r = await alterarImageUm(imagem, id);
 
-        if(r != 1){
+        if (r != 1) {
             throw new Error('A imagem não pode ser salva')
         }
 
         resp.status(204).send();
 
     }
-    catch(err) {
-        resp.status(404).send({erro: err.message})
+    catch (err) {
+        resp.status(404).send({ erro: err.message })
     }
 
 })
 
-endpoints.put('/alterar/:id/imagemdois', upload.single('fotoProduto') , async (req, resp) => {
-    try{
-        let {id} = req.params;
+endpoints.put('/alterar/:id/imagemdois', upload.single('fotoProduto'), async (req, resp) => {
+    try {
+        let { id } = req.params;
         let imagem = req.file.path;
 
 
         let r = await alterarImageDois(imagem, id);
 
-        if(r != 1)
-        throw new Error('A imagem não pode ser salva')
+        if (r != 1)
+            throw new Error('A imagem não pode ser salva')
 
         resp.status(204).send();
 
-    }catch(err) {
-        resp.status(404).send({erro: err.message})
+    } catch (err) {
+        resp.status(404).send({ erro: err.message })
     }
 
 })
 
-endpoints.put('/alterar/produto', async (req, resp) => {
-    
+endpoints.put('/produto/:id', async (req, resp) => {
     try {
-        let produto = req.body;   
-        let resposta = await alterarProduto(produto);
-        resp.send(resposta);
- 
-    }
+        let {id} = req.params;
+        let produto = req.body;
 
-    catch(err) {
-        resp.status(404).send({erro: err.message})
-    }
+        let r = await alterarProduto(id, produto);
 
+        if (produto.marca === 0 )
+            throw new Error('Selecione a marca do produto');
+
+        if (produto.categoria === 0)
+            throw new Error('Selecione uma categoria');
+
+        if (!produto.nome)
+            throw new Error('Nome do produto é obrigatório');
+
+        if (!produto.preco)
+            throw new Error('Preço do produto é obrigatório');
+
+        if (!produto.cor)
+            throw new Error('Cor do produto é obrigatório');
+
+        if (produto.qtd < 0 || produto.qtd === undefined)
+            throw new Error('Informe a quantia em estoque');
+
+        if (!produto.desc)
+            throw new Error('Descrição do produto é obrigatório');
+
+        if (!produto.precopromo)
+            throw new Error('Preço Promocional do produto é obrigatório');
+
+
+        if (r != 1)
+        throw new Error("O produto não pode ser alterado");
+
+        else
+        resp.status(204).send();
+
+    } catch (err) {
+        resp.status(404).send({ erro: err.message })
+    }
 })
 
 
