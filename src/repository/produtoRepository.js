@@ -21,16 +21,14 @@ export async function listarCategorias() {
     return dados;
 }
 
-export async function listarProduto() {
+export async function listarProdutosinicio() {
     let sql =  `select 
-                    nm_produto    as nome, 
-                    vl_preco      as preco, 
-                    ds_categoria  as categoria, 
-                    nr_quantidade as qtd, 
-                    id_produto    as id 
-                from tb_produto 
-                inner join tb_categoria 
-                        on tb_categoria.id_categoria = tb_produto.id_categoria`;
+                    id_produto as id,
+                    nm_produto as nome, 
+                    ds_produto as descricao,
+                    url_imagem_um 	as img1 
+                from tb_produto
+                `;
 
     let [dados] = await connection.query(sql);
     return dados;
