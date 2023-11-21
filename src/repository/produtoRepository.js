@@ -23,10 +23,10 @@ export async function listarCategorias() {
 
 export async function listarProdutosinicio() {
     let sql =  `select 
-                    id_produto as id,
-                    nm_produto as nome, 
-                    ds_produto as descricao,
-                    url_imagem_um 	as img1 
+                    id_produto    as id,
+                    nm_produto    as nome, 
+                    ds_produto    as descricao,
+                    url_imagem_um as img1 
                 from tb_produto
                 `;
 
@@ -149,4 +149,27 @@ export async function alterarProduto(id, produto) {
         return dados.affectedRows;
     } 
 
+export async function buscarProdutoPorId(id) {
 
+    let sql =  `select 
+                    tb_marca.nm_marca 		  as marca,
+                    tb_categoria.ds_categoria as categoria,
+                    nm_produto 		  		  as produto, 
+                    vl_preco 		  		  as preco, 
+                    ds_cor 			  		  as cores, 
+                    nr_quantidade	     	  as qtd, 
+                    ds_produto 		  		  as descri, 
+                    vl_preco_promocao 		  as promocao, 
+                    url_imagem_um	  		  as img1, 
+                    url_imagem_dois   		  as img2, 
+                    id_produto		  		  as id
+            from tb_produto
+            inner join tb_categoria 
+                on tb_categoria.id_categoria = tb_produto.id_categoria
+            inner join tb_marca 
+                on tb_marca.id_marca = tb_produto.id_marca
+            where id_produto = 1`;
+
+    let [dados] = await connection.query(sql, [id]);
+    return dados[0];
+}
