@@ -154,7 +154,9 @@ export async function buscarProdutoPorId(id) {
 
     let sql =  `select 
                     tb_marca.nm_marca 		  as marca,
+                    tb_marca.id_marca 		  as idMarca,
                     tb_categoria.ds_categoria as categoria,
+                    tb_categoria.id_categoria as idCategoria,
                     nm_produto 		  		  as produto, 
                     vl_preco 		  		  as preco, 
                     ds_cor 			  		  as cores, 
