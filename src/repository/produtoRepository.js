@@ -36,9 +36,9 @@ export async function listarProdutosinicio() {
 
 export async function buscarPorNomeProduto(nome) {
     let sql =  `select 
-                    nm_produto as produto, 
-                    vl_preco as preco, 
-                    ds_categoria as categoria, 
+                    nm_produto    as produto, 
+                    vl_preco      as preco, 
+                    ds_categoria  as categoria, 
                     nr_quantidade as qtd, 
                     id_produto as id from tb_produto 
                 inner join tb_categoria 
@@ -91,7 +91,7 @@ export async function consultarProduto(nome) {
 export async function alterarImageUm(imagem, id) {
     let sql =  `update tb_produto 
                     set url_imagem_um = ? 
-                where id_produto = ?`;
+                where id_produto      = ?`;
 
     const [dados] = await connection.query(sql, [imagem, id]);
     return dados.affectedRows;
@@ -100,7 +100,7 @@ export async function alterarImageUm(imagem, id) {
 export async function alterarImageDois(imagem, id) {
     let sql =  `update tb_produto 
                     set url_imagem_dois = ? 
-                where id_produto = ?`;
+                where id_produto        = ?`;
 
     const [dados] = await connection.query(sql, [imagem, id]);
     return dados.affectedRows;
@@ -108,13 +108,14 @@ export async function alterarImageDois(imagem, id) {
 
 export async function listarPorMarca(marca) {
     let sql =  `select 
-                    ds_imagem as imagem, 
-                    nm_produto as nome, 
-                    vl_preco as preco, 
+                    ds_imagem         as imagem, 
+                    nm_produto        as nome, 
+                    vl_preco          as preco, 
                     vl_preco_promocao as promocao, 
                     tb_produto.id_produto 
                 from tb_imagem 
-                    inner join tb_produto on tb_imagem.id_produto = tb_imagem.id_produto 
+                inner join tb_produto 
+                    on tb_imagem.id_produto = tb_imagem.id_produto 
                 where id_marca like ? 
                     and id_categoria like 2`;
 
@@ -133,7 +134,7 @@ export async function alterarProduto(id, produto) {
                             nr_quantidade     = ?,
                             ds_produto        = ?,
                             vl_preco_promocao = ?
-                        where id_produto = ?`;
+                        where id_produto      = ?`;
         
         let [dados] = await connection.query(sql, [
             produto.marca,
@@ -168,7 +169,7 @@ export async function buscarProdutoPorId(id) {
                 on tb_categoria.id_categoria = tb_produto.id_categoria
             inner join tb_marca 
                 on tb_marca.id_marca = tb_produto.id_marca
-            where id_produto = 1`;
+            where id_produto = ?`;
 
     let [dados] = await connection.query(sql, [id]);
     return dados[0];
