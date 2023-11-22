@@ -73,7 +73,7 @@ create table tb_produto(
     vl_preco			decimal(15,2) not null,
     ds_cor				varchar(200) not null,
     nr_quantidade		int,
-    ds_produto			varchar(200) not null,
+    ds_produto			varchar(7000) not null,
     vl_preco_promocao	decimal(15,2) not null,
     url_imagem_um 		varchar(200),
     url_imagem_dois 		varchar(200),
