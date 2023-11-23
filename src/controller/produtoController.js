@@ -5,22 +5,23 @@ import { deletarProduto, adicionarProduto, listarMarcas, listarCategorias, busca
 let endpoints = Router();
 let upload = multer({ dest: 'storage/produtos' })
 
-endpoints.get('/produto/busca', async (req, resp) => {
-    try {
-        const { nome } = req.query;
+endpoints.get('/produto/busca/:nome/:pagina', async (req, resp) => {
+    try {   
+        const nome = req.params.nome;
+        const pagina = req.params.pagina;
+        const r = await buscarPorProduto(nome, pagina);
 
-        const resposta = await buscarPorProduto(nome);
-
-        if (resposta.length == 0)
+        if(r.length == 0) {
             resp.status(404).send([])
-        else
-            resp.send(resposta);
+        } else {
+            resp.send(r)
+        }
+
     } catch (err) {
-        resp.status(400).send({
-            erro: err.message
-        })
+        resp.status(500).send({ erro: 'Ocorreu um erro' });
     }
 })
+
 
 endpoints.get('/categoria/listar', async (req, resp) => {
     try {

@@ -1,6 +1,7 @@
 import connection from "./connection.js";
 
-export async function ListarTodosAcessorios() {
+export async function ListarTodosAcessorios(pagina) {
+      pagina = (pagina - 1) * 9;
       let sql =  `select
                         url_imagem_um     as img1, 
                         url_imagem_dois   as img2, 
@@ -11,7 +12,7 @@ export async function ListarTodosAcessorios() {
                   from tb_produto 
                   where id_categoria like 2`;
 
-    let [dados] = await connection.query(sql);
+    let [dados] = await connection.query(sql, [pagina]);
     return dados;
 }
 

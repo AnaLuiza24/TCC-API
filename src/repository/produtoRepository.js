@@ -1,7 +1,10 @@
 import connection from "./connection.js";
 
 
-export async function buscarPorProduto(nome) {
+export async function buscarPorProduto(nome, pagina) {
+    pagina = (pagina - 1) * 3;
+
+
     let sql = 
             `select 
                     id_produto          as id, 
@@ -14,9 +17,10 @@ export async function buscarPorProduto(nome) {
                     url_imagem_um       as img1, 
                     url_imagem_dois     as img2
             from    tb_produto 
-            where   nm_produto like ? `;
+            where   nm_produto like ? 
+            limit 3 offset ?`;
     
-    const [dados] = await connection.query(sql, [`%${nome}%`]);
+    const [dados] = await connection.query(sql, [`%${nome}%`, pagina]);
     return dados; 
 }
 
