@@ -251,3 +251,54 @@ drop table tb_endereco;
 select * from tb_endereco;
 insert into tb_endereco (nm_destinatario, ds_cep, ds_endereco, ds_bairro, ds_cidade, ds_estado, nr_endereco, ds_complemento)
     values ("Exemplo", "12345-567", "Rua de exemplo", "Bairro de exemplo", "São Paulo", "São Paulo", 1000, "Casa de exemplo");
+
+CREATE TABLE tb_pedido(
+	id_pedido 				int primary key auto_increment,
+    id_endereco				int,
+    id_cliente				int,
+    id_produto				int,
+    id_situacao				int,
+    vl_pedido				decimal(10,2),
+    ds_forma_pagamento		varchar(200),
+    dt_pedido				date,
+    nr_parcelas				int,
+    
+	foreign key (id_endereco) references tb_endereco(id_endereco),
+    foreign key (id_cliente) references tb_cliente(id_cliente),
+	foreign key (id_produto) references tb_produto(id_produto),
+	foreign key (id_situacao) references tb_situacao(id_situacao)
+);
+
+insert into tb_pedido (vl_pedido, ds_forma_pagamento, dt_pedido, id_situacao, id_produto, id_cliente, id_endereco, nr_parcelas)
+				value(150.02, 'Debito', '2023-11-23', 1 ,1 ,1 ,1 , 7 );
+                
+select * from tb_pedido;
+
+select  tb_cliente.nm_cliente 		as cliente,
+		tb_produto.nm_produto		as produto,
+        vl_pedido					as valor,
+        tb_situacao.ds_situacao		as situacao
+        from tb_pedido
+        inner join tb_produto on tb_produto.id_produto = tb_pedido.id_pedido
+        inner join tb_cliente on tb_cliente.id_cliente = tb_pedido.id_cliente
+		inner join tb_situacao on tb_situacao.id_situacao = tb_pedido.id_situacao
+        
+;
+
+drop table tb_pedido;
+
+create table tb_situacao (
+	id_situacao		int primary key auto_increment,
+    ds_situacao		varchar(200)
+);
+
+select * from tb_situacao;
+
+insert into tb_situacao (ds_situacao)
+				value('Pago');
+                
+insert into tb_situacao (ds_situacao)
+				value('Enviado');
+                
+insert into tb_situacao (ds_situacao)
+				value('Finalizado');
