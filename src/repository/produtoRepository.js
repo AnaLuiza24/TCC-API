@@ -176,3 +176,23 @@ export async function buscarProdutoPorId(id) {
     let [dados] = await connection.query(sql, [id]);
     return dados[0];
 }
+
+
+export async function buscarPorProduto(nome) {
+    let sql = 
+            `select 
+                    id_produto          as id, 
+                    nm_produto          as nome, 
+                    vl_preco            as preco, 
+                    ds_cor              as cores, 
+                    nr_quantidade       as qtd, 
+                    ds_produto          as descri, 
+                    vl_preco_promocao   as promocao, 
+                    url_imagem_um       as img1, 
+                    url_imagem_dois     as img2
+            from    tb_produto 
+            where   nm_produto like ? `;
+    
+    const [dados] = await connection.query(sql, [`%${nome}%`]);
+    return dados; 
+}

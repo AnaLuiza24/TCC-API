@@ -1,6 +1,6 @@
 import { Router } from "express";
 import multer from "multer";
-import { deletarProduto, adicionarProduto, listarMarcas, listarCategorias, buscarPorNomeProduto, consultarProduto, alterarImageUm, alterarImageDois, alterarProduto, listarProdutosinicio, buscarProdutoPorId } from "../repository/produtoRepository.js";
+import { deletarProduto, adicionarProduto, listarMarcas, listarCategorias, buscarPorNomeProduto, consultarProduto, alterarImageUm, alterarImageDois, alterarProduto, listarProdutosinicio, buscarProdutoPorId, buscarPorProduto } from "../repository/produtoRepository.js";
 
 let endpoints = Router();
 let upload = multer({ dest: 'storage/produtos' })
@@ -193,6 +193,23 @@ endpoints.get('/produto/:id', async (req, resp) => {
 
     }catch (err) {
         resp.status(400).send({ erro: err.message })
+    }
+})
+
+endpoints.get('/produto/busca', async (req, resp) => {
+    try {
+        const { nome } = req.query;
+
+        const resposta = await buscarPorProduto(nome);
+
+        if (resposta,length == 0)
+            resp.status(404).send([])
+        else
+            resp.send(resposta);
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
     }
 })
 
