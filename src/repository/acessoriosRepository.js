@@ -10,7 +10,8 @@ export async function ListarTodosAcessorios(pagina) {
                         vl_preco_promocao as promocao, 
                         tb_produto.id_produto 
                   from tb_produto 
-                  where id_categoria like 2`;
+                  where id_categoria like 2
+                  order by nm_produto`;
 
     let [dados] = await connection.query(sql, [pagina]);
     return dados;
