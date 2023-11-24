@@ -4,10 +4,9 @@ import { ListarTodosAcessorios, ConsultarAcessorios} from '../repository/acessor
 
 let endpoints = Router();
 
-endpoints.get('/acessorios/:pagina', async (req, resp) => {
+endpoints.get('/acessorios', async (req, resp) => {
     try{
-        const pagina = req.params.pagina;
-        const r = await ListarTodosAcessorios(pagina);
+        const r = await ListarTodosAcessorios();
         resp.send(r);
 
     }catch(err){

@@ -5,8 +5,7 @@ let endpoints = Router();
 
 endpoints.get('/smartphones', async (req, resp) => {
     try{
-        const pagina = req.params.pagina;
-        const r = await listarTodosSmartphones(pagina);
+        const r = await listarTodosSmartphones();
         resp.send(r);
 
     }catch(err) {
