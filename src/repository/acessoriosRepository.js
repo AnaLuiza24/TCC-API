@@ -18,7 +18,7 @@ export async function ListarTodosAcessorios() {
 
 export async function ConsultarAcessorios(marca) {
       let sql =  `select
-                        url_imagem_um     as imagem, 
+                        url_imagem_um     as img1, 
                         nm_produto        as nome,
                         vl_preco          as preco, 
                         vl_preco_promocao as promocao, 
